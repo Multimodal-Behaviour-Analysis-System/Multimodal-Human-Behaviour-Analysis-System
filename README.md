@@ -1,33 +1,122 @@
-# Multimodal-Human-Behaviour-Analysis-System
-MHBAS is an advanced hardware-accelerated desktop application for real-time biometric analysis, clinical stress monitoring, and behavioral tracking. It integrates computer vision pipelines with deep vocal sentiment analysis to generate a synchronized timeline of physiological and behavioral insights.
+# MHBAS
 
-🛠️ Tech Stack & Architecture
+## Multimodal Human Behaviour Analysis System
 
-The system utilizes an asynchronous Producer-Consumer pipeline implemented via PyQt6 threads (QThread) and specialized workers to completely decouple microsecond sensor collection from inference latency.
+Real-time stress · attention · emotion analysis using webcam +
+microphone --- no wearables, no cloud.
 
-GUI Framework: PyQt6 (Custom Cyberpunk/Glassmorphism theme layered via standard dynamic QPainters and custom QSS styles).
+**Tech Stack:** Python 3.10+ · PyQt6 · PyTorch · TensorFlow · OpenCV ·
+DeepFace · RetinaFace · Wav2Vec2
 
-Computer Vision Frameworks: RetinaFace (High-accuracy structural facial bounding box tracking & landmark segmentation).
+## About the Project
 
-DeepFace (Face representation and macro-expression probability tracking).
+MHBAS (Multimodal Human Behaviour Analysis System) is a Windows desktop
+application that performs continuous real-time behavioural analysis
+using a standard webcam and microphone.
 
-Audio Pipeline Model: Wav2Vec2 (superb/wav2vec2-base-superb-er fine-tuned for vocal Sequence Classification / Emotion Recognition).
+The system combines computer vision and speech processing to estimate: -
+Stress Score (0--100) - Attention Score (0--100) - Distraction Heat
 
-Kinematics Engine: OpenCV + Perspective-n-Point (SolvePnP) vector geometry estimating 3D Euler angles (Yaw, Pitch, Roll) for head tilt and tracking attention.
+It was developed as a college mini-project exploring AI-based
+behavioural monitoring.
 
-Backend Computations: PyTorch, TensorFlow (GPU memory growth/CUDA optimization), NumPy, Librosa (Acoustic pitch tracking via piptrack and peak-normalization matrix tracking).
+## Features
 
-🔍 Core Logic & Calculations
-1. Dual-Phase Ambient Calibration:
-Before active session analysis, the app locks into a critical 12-second adaptive calibration routine to adjust for the user's specific baseline environment:
-Phase 1 (Stillness & Silence): Measures real-time ambient space noise floor levels (RMS) and extracts structural baseline camera alignments.
-Phase 2 (Natural Vocalization): Evaluates normal talking speech samples to establish target vocal ranges and extract the user's base neutral emotional state.
+### Real-time Multimodal Analysis
 
-2. Behavioral Threat Matrix:
-The application runs real-time heuristics across metrics to watch for target stress triggers and user distractions:  Stress Factor Index: Combines face metrics against voice features. Scales raw markers if a negative expression context persists across 5 consecutive tracking loops.  Distraction Heat Tracker: A structural temperature gauge tracking focus. Adds weight points whenever look paths or head orientations veer off-center, while scaling down during periods of direct focal tracking.
+-   Face emotion recognition
+-   Vocal emotion recognition using Wav2Vec2
+-   Eye gaze direction detection
+-   Head pose estimation
+-   Blink and eye-closure monitoring
 
-🚨 Automated Behavioral Alert Signals:
-The platform actively records critical tracking changes directly to the console feed and session reports:  ALERT: Prolonged Gaze Avoidance (>6s) — Fired when gaze arrays deviate from center boundaries continuously.  ALERT: Eye Closure (>3s) — Catches potential drowsiness episodes via prolonged EAR  anomalies.  ALERT: High Distraction Heat — Triggers when real-time head tilts or side looks suggest complete task disengagement.  TRAUMA CARE ASSESSMENT INTERVENTION ALERT — Fires an active 3-beep safety loop (winsound.Beep) when computed stress scales spike beyond critical 85% thresholds for more than 60% of total active recording runs.
+### Stress & Attention Scoring
 
-📊 Live System Analytics & Session Exporting:
-The interface splits operations across four high-density layout panels: Live Feed:Seamless webcam streaming overlay combined with real-time audio waveforms and biometric health pills.  Metrics Dashboard:Aggregates mathematical session peaks, longest high-stress duration streaks, focus averages, and Matplotlib status charts.  Session Log:Displays a historical running clock charting behavioral changes directly alongside real-time log lines.  Reports Desk:Generates assessment documents and clinical guides while providing time-series log exports to standard .csv formatting paths. 
+-   Multimodal fusion of visual and audio signals
+-   Smooth stress tracking using exponential moving average
+-   Distraction detection
+-   High-stress alert system
+
+### Calibration
+
+Two-phase personalised calibration: 1. Silence phase --- captures
+environment and neutral pose 2. Speech phase --- captures vocal baseline
+
+## Technologies Used
+
+### Computer Vision
+
+-   OpenCV
+-   RetinaFace
+-   DeepFace
+-   TensorFlow
+-   NumPy
+
+### Audio Processing
+
+-   Wav2Vec2
+-   Transformers
+-   PyTorch
+-   SoundDevice
+-   Librosa
+
+### Interface
+
+-   PyQt6
+-   Matplotlib
+
+## Project Structure
+
+    mhbas/
+    ├── appmain.py
+    ├── app.py
+    ├── video_worker.py
+    ├── audio_worker.py
+    ├── widgets.py
+    ├── visuals.py
+    ├── pages.py
+    ├── install_fonts.py
+    └── requirements.txt
+
+## Requirements
+
+-   Windows 10/11
+-   Python 3.10+
+-   Webcam and microphone
+-   NVIDIA GPU recommended (CUDA)
+
+## Installation
+
+``` bash
+git clone https://github.com/Irin25/Multimodal-Human-Behaviour-Analysis-System.git
+
+cd Multimodal-Human-Behaviour-Analysis-System
+
+python -m venv venv
+venv\Scripts\activate
+
+pip install -r requirements.txt
+
+python install_fonts.py
+
+python appmain.py
+```
+
+## Usage
+
+1.  Launch the application
+2.  Start calibration
+3.  Record a session
+4.  View stress and attention metrics
+5.  Export reports
+
+## Limitations
+
+-   Windows-only application
+-   Requires proper lighting for accurate detection
+-   Blink detection is an approximation
+-   Session data is temporary unless exported
+
+## License
+
+This project is for educational and research purposes.
