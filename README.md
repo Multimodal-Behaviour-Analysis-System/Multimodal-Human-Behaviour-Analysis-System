@@ -1,6 +1,6 @@
 # MHBAS
 
-## Multimodal Human Behaviour Analysis System
+## Multimodal Human Behaviour Analysis System.
 
 Real-time stress · attention · emotion analysis using webcam +
 microphone --- no wearables, no cloud.
