@@ -11,8 +11,7 @@ DeepFace · RetinaFace · Wav2Vec2
 ## About the Project
 
 MHBAS (Multimodal Human Behaviour Analysis System) is a Windows desktop
-application that performs continuous real-time behavioural analysis
-using a standard webcam and microphone.
+application that performs continuous real-time behavioural analysis using a standard webcam and microphone.
 
 The system combines computer vision and speech processing to estimate: -
 Stress Score (0--100) - Attention Score (0--100) - Distraction Heat
