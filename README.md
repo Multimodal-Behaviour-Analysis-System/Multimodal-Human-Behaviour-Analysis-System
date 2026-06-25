@@ -75,7 +75,7 @@ environment and neutral pose 2. Speech phase --- captures vocal baseline
     ├── widgets.py
     ├── visuals.py
     ├── pages.py
-    ├── install_fonts.py
+    ├── installfonts.py
     └── requirements.txt
 
 ## Requirements
@@ -97,7 +97,7 @@ venv\Scripts\activate
 
 pip install -r requirements.txt
 
-python install_fonts.py
+python installfonts.py
 
 python appmain.py
 ```
